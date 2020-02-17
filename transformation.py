@@ -6,7 +6,7 @@ import math
 
 ver=[]
 def translation(ver,x,y,win):
-    input()
+    #input()
     polygon(ver,win,color_rgb(240,240,240))
     setaxis(win)
     #print(ver)
@@ -24,7 +24,7 @@ def translation(ver,x,y,win):
 def doRotation(ver,x,y,angle,win):
     angle=(math.pi*angle/180)
     rot=[[math.cos(angle),math.sin(angle),0],[-math.sin(angle),math.cos(angle),0],[0,0,1]]
-    input()
+    #input()
     polygon(ver,win,color_rgb(240,240,240))
     setaxis(win)
     for i in range(len(ver)):
@@ -45,7 +45,7 @@ def rotation(ver,x,y,angle,win):
 
 def doScale(ver,x,y,sx,sy,win):
     scal=[[sx,0,0],[0,sy,0],[0,0,1]]
-    input()
+    #input()
     polygon(ver,win,color_rgb(240,240,240))
     setaxis(win)
     for i in range(len(ver)):
@@ -68,7 +68,7 @@ def reflection(ver,x,y,angle,win):
     ver=translation(ver,x,y,win)
     ver=doRotation(ver,x,y,angle,win)
     ref=[[-1,0,0],[0,1,0],[0,0,1]]
-    input()
+    #input()
     polygon(ver,win,color_rgb(240,240,240))
     setaxis(win)
     for i in range(len(ver)):
@@ -84,7 +84,7 @@ def reflection(ver,x,y,angle,win):
     return ver
 def shearX(ver,shx,win):
     shrx=[[1,0,0],[shx,1,0],[0,0,1]]
-    input()
+    #input()
     polygon(ver,win,color_rgb(240,240,240))
     setaxis(win)
     #print(ver)
@@ -101,7 +101,7 @@ def shearX(ver,shx,win):
 
 def shearY(ver,shy,win):
     shry=[[1,shy,0],[0,1,0],[0,0,1]]
-    input()
+    #input()
     polygon(ver,win,color_rgb(240,240,240))
     setaxis(win)
     #print(ver)
@@ -119,6 +119,7 @@ def shearY(ver,shy,win):
 
 def main():
     win=GraphWin('line',400,400)
+    win.setBackground(color_rgb(240,240,240))
     setaxis(win)
     n=int(input('no of vertices'))
     ver=[]
@@ -127,7 +128,7 @@ def main():
         ver+=[[x,y]]
     #print(ver)
     polygon(ver,win,'green')
-    print("1:translation 2: rotation 3: scale")
+    '''print("1:translation 2: rotation 3: scale")
     print("4: reflection 5:shear in X 6: shear in Y")
     while(1):
         flag=int(input("Enter the number"))
@@ -150,9 +151,46 @@ def main():
             par=list(map(int,input("Enter shy").split()))
             ver=shearY(ver,*par,win)
         else:
-            break
+            break'''
+    while(1):
+    	k=win.getKey()
+    	#print(k)
+    	if k=="Left":
+    		ver=translation(ver,5,0,win)
+    	elif k=="Right":
+    		ver=translation(ver,-5,0,win)
+    	elif k=="Up":
+    		ver=translation(ver,0,-5,win)
+    	elif k=="Down":
+    		ver=translation(ver,0,5,win)
+    	elif k=="r":
+    		ver=doRotation(ver,0,0,15,win)
+    	elif k=="R":
+    		ver=doRotation(ver,0,0,-15,win)
+    	elif k=="s":
+    		ver=doScale(ver,0,0,.5,.5,win)
+    	elif k=="S":
+    		ver=doScale(ver,0,0,2,2,win)
+    	elif k=="x":
+    		ver=shearX(ver,1,win)
+    	elif k=="X":
+    		ver=shearX(ver,-1,win)
+    	elif k=="y":
+    		ver=shearY(ver,1,win)
+    	elif k=="Y":
+    		ver=shearY(ver,-1,win)
+    	elif k=="q":
+    		break
     input("exit")
     
 
 if __name__=='__main__':
     main()
+
+'''
+4
+0 0
+100 0
+100 100
+0 100
+'''

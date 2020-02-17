@@ -2,8 +2,9 @@ from line import bresenham as l
 from start import setaxis
 from graphics import *
 
-def polygon(a,win,color):
+def polygon(ver,win,color):
     #a+=[a[0]]
+    a=ver.copy()
     print(a)
     a+=[a[0]]
     pixel=[]

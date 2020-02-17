@@ -26,7 +26,7 @@ def fill(edge_table,y_min,y_max,win):
         for cur in range(0,len(active_edge)-1,2):
             #print(active_edge)
             for x in range(active_edge[cur][0],active_edge[cur+1][0]+1):
-                win.plot(x,curr_y,'green')
+                win.plot(x,curr_y,'grey')
 def main():
     win=GraphWin('line',400,400)
     setaxis(win)
