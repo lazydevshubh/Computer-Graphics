@@ -17,7 +17,7 @@ def draw(ver,win):
 	r=random.randint(0,255)
 	g=random.randint(0,255)
 	b=random.randint(0,255)
-	polygon(ver2d[:4],win,color_rgb(r,g,b))
+	polygon(ver2d[4:],win,color_rgb(r,g,b))
 	for i in range(4):
 		l(*ver2d[i],*ver2d[i+4],win,"black")
 
@@ -32,6 +32,8 @@ def perspective(ver,cop,ref,nor,win):
 	proj=[[n1*a + d , b*n1 , c*n1 , n1],[a*n2 , b*n2 + d , c*n2 , n2],[a*n3 , b*n3 , c*n3 + d , n3],[-a*d0 , -b*d0 , -c*d0 , -d1]]
 	result = [[int(sum(a * b for a, b in zip(A_row, B_col))) for B_col in zip(*proj)] for A_row in ver]
 	for i in range(len(result)):
+		for j in range(len(result[0])):
+			result[i][j]//=result[i][-1]
 		result[i]=result[i][:3]
 	draw(result,win)
 
@@ -45,6 +47,8 @@ def parallel(ver,cop,ref,nor,win):
 	proj=[[d1-a*n1,-b*n1,-c*n1,0],[-a*n2,d1-b*n2,c*n2,0],[-a*n3,-b*n3,d1-c*n3,0],[a*d0,b*d0,c*d0,d1]]
 	result = [[int(sum(a * b for a, b in zip(A_row, B_col))) for B_col in zip(*proj)] for A_row in ver]
 	for i in range(len(result)):
+		for j in range(len(result[0])):
+			result[i][j]//=result[i][-1]
 		result[i]=result[i][:3]
 	draw(result,win)
 
@@ -53,14 +57,15 @@ def main():
 	win=GraphWin('line',400,400)
 	setaxis(win)
 	ver=[[0,0,0,1],[150,0,0,1],[150,150,0,1],[0,150,0,1],[0,0,150,1],[150,0,150,1],[150,150,150,1],[0,150,150,1]]
+	draw(ver,win)
 	while(1):
 		k=win.getKey()
 		if k=="1":
-			perspective(ver,[10,10,20],[0,0,0],[0,0,1],win)
+			perspective(ver,[500,500,600],[0,0,0],[0,0,1],win)
 		elif k=="2":
-			perspective(ver,[-15,-15,-10],[250,0,0],[1,1,0],win)
+			perspective(ver,[-150,-150,-100],[250,0,0],[1,1,0],win)
 		elif k=="3":
-			perspective(ver,[20,20,20],[0,0,0],[1,1,1],win)
+			perspective(ver,[250,250,250],[0,0,0],[1,1,1],win)
 		elif k=="o":
 			parallel(ver,[0,0,1],[0,0,0],[0,0,1],win)
 		elif k=="i":
@@ -76,7 +81,6 @@ def main():
 		elif k=="e":
 			win.close()
 			break
-	input('exit')
 
 if __name__=='__main__':
     main()
